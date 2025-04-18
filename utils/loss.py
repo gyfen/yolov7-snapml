@@ -454,6 +454,8 @@ class ComputeLoss:
 
         # Losses
         for i, pi in enumerate(p):  # layer index, layer predictions
+            if i >= len(indices):
+                continue
             b, a, gj, gi = indices[i]  # image, anchor, gridy, gridx
             tobj = torch.zeros_like(pi[..., 0], device=device)  # target obj
 
@@ -621,7 +623,10 @@ class ComputeLossOTA:
                 #     [file.write('%11.5g ' * 4 % tuple(x) + '\n') for x in torch.cat((txy[i], twh[i]), 1)]
 
             obji = self.BCEobj(pi[..., 4], tobj)
-            lobj += obji * self.balance[i]  # obj loss
+            if i < len(self.balance):
+                lobj += obji * self.balance[i]  # obj loss
+            else:
+            `   lobj += obji
             if self.autobalance:
                 self.balance[i] = self.balance[i] * 0.9999 + 0.0001 / obji.detach().item()
 
@@ -673,7 +678,8 @@ class ComputeLossOTA:
             all_anch = []
             
             for i, pi in enumerate(p):
-                
+                if i >= len(indices):
+                    continue
                 b, a, gj, gi = indices[i]
                 idx = (b == batch_idx)
                 b, a, gj, gi = b[idx], a[idx], gj[idx], gi[idx]                
@@ -999,7 +1005,8 @@ class ComputeLossBinOTA:
             for i, pi in enumerate(p):
                 
                 obj_idx = self.wh_bin_sigmoid.get_length()*2 + 2
-                
+                if i >= len(indices):
+                    continue
                 b, a, gj, gi = indices[i]
                 idx = (b == batch_idx)
                 b, a, gj, gi = b[idx], a[idx], gj[idx], gi[idx]                
@@ -1319,7 +1326,8 @@ class ComputeLossAuxOTA:
             all_anch = []
             
             for i, pi in enumerate(p):
-                
+                if i >= len(indices):
+                    continue
                 b, a, gj, gi = indices[i]
                 idx = (b == batch_idx)
                 b, a, gj, gi = b[idx], a[idx], gj[idx], gi[idx]                
@@ -1472,7 +1480,8 @@ class ComputeLossAuxOTA:
             all_anch = []
             
             for i, pi in enumerate(p):
-                
+                if i >= len(indices):
+                    continue
                 b, a, gj, gi = indices[i]
                 idx = (b == batch_idx)
                 b, a, gj, gi = b[idx], a[idx], gj[idx], gi[idx]                

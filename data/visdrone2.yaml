@@ -1,0 +1,5 @@
+train: /content/drive/MyDrive/data/images/train
+val: /content/drive/MyDrive/data/images/valid
+
+nc: 10
+names: ['pedestrian', 'person', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor']

@@ -626,7 +626,7 @@ class ComputeLossOTA:
             if i < len(self.balance):
                 lobj += obji * self.balance[i]  # obj loss
             else:
-            `   lobj += obji
+                lobj += obji
             if self.autobalance:
                 self.balance[i] = self.balance[i] * 0.9999 + 0.0001 / obji.detach().item()
 

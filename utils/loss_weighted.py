@@ -429,7 +429,7 @@ class ComputeLoss:
         # Define criteria
         manual_class_weights = torch.tensor([4.325539477664616, 12.681855136733185, 32.75157472800153, 2.3688857288804828, 
                                 13.753797442988256, 26.660270354257303, 71.43442964196502, 105.7863748458693, 57.89961194533491, 11.57679722025436], device=device)
-        BCEcls = nn.BCEWithLogitsLoss(pos_weight=manual_class_weights, device=device))
+        BCEcls = nn.BCEWithLogitsLoss(pos_weight=manual_class_weights)
         BCEobj = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([h['obj_pw']], device=device))
 
         # Class label smoothing https://arxiv.org/pdf/1902.04103.pdf eqn 3

@@ -588,7 +588,7 @@ if __name__ == '__main__':
         assert len(opt.cfg) or len(opt.weights), 'either --cfg or --weights must be specified'
         opt.img_size.extend([opt.img_size[-1]] * (2 - len(opt.img_size)))  # extend to 2 sizes (train, test)
         opt.name = 'evolve' if opt.evolve else opt.name
-        opt.save_dir = increment_path(Path('/content/drive/MyDrive') / opt.name, exist_ok=opt.exist_ok | opt.evolve)  # increment run
+        opt.save_dir = increment_path(Path('runs') / opt.name, exist_ok=opt.exist_ok | opt.evolve)  # increment run
 
     # DDP mode
     opt.total_batch_size = opt.batch_size
